@@ -6,15 +6,16 @@ driver = Selenium::WebDriver.for :chrome
 driver.navigate.to "https://kitt.lewagon.com"
 
 # Login into website as a teacher
+# Credentials have been removed
 
 teacher_login = driver.find_element(:link, "as a teacher")
 teacher_login.click
 
 user_name = driver.find_element(:css, "input[name=login]")
-user_name.send_keys("libsyz")
+user_name.send_keys("insert_username")
 
 password = driver.find_element(:css, "input[type=password]")
-password.send_keys("sjnv249_in&fnc")
+password.send_keys("insert_password")
 
 login = driver.find_element(:class, "btn-primary")
 login.click
@@ -33,29 +34,29 @@ batches.click
 
 # go to student list
 
-wait.until do
-  first_batch = driver.find_element(:css, "a[href='/camps/417/applications']")
+first_batch = wait.until do
+  driver.find_element(:css, "a[href='/camps/417/applications']")
 end
 
-first_batch = driver.find_element(:css, "a[href='/camps/417/applications']")
 first_batch.click
-
 
 funnel = driver.find_element(:css, "a.funnel-step-link[href='/camps/417/applications/codecademy']")
 funnel.click
-
 
 wait.until do
   driver.find_elements(:css, "a.card-link").size > 1
 end
 
 students = driver.find_elements(:css, "a.card-link")
-
 students[0].click
 sleep(2)
 
+
+
+
+# Fetching data fields for one student
+
 a_student = {}
-# Let's get all the data from one guy
 
 a_student[:motivation] = driver.find_element(:css, "p[data-target='applies.truncatedMotivation']").text
 basic_info = driver.find_element(:css, ".card-white").text.split(/\n/)
